@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "ignite-teams",
+    "slug": "ignite-teams",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
