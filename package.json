@@ -1,7 +1,7 @@
 {
   "name": "ignite-teams",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -9,11 +9,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/roboto": "^0.2.3",
     "expo": "~48.0.15",
+    "expo-font": "~11.1.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.8"
+    "react-native": "0.71.8",
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
