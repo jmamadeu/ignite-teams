@@ -1,4 +1,3 @@
-import { MainLogoSVG } from "../../assets/logo";
 import { TeamsLogoSVG } from "../../assets/teams";
 import { Block, Button, Typography } from "../../components";
 import { THEME } from "../../theme/theme";
@@ -7,15 +6,9 @@ const { colors } = THEME;
 
 export const TeamsScreen = () => {
   return (
-    <Block
-      container
-      flex={1}
-      justifyContent="space-between"
-      bg={colors.base.gray[600]}
-    >
+    <Block container flex={1} justifyContent="space-between">
       <Block gap={40}>
         <Block alignItems="center" gap={8}>
-          <MainLogoSVG />
           <Typography weight="700" fontSize={24} color={colors.base.white}>
             Teams
           </Typography>
