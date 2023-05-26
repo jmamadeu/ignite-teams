@@ -3,16 +3,26 @@ import { StyleSheet, Text, TextProps, TextStyle } from "react-native";
 type TypographyProps = TextProps & {
   children: React.ReactNode;
   color?: TextStyle["color"];
+  fontSize?: TextStyle["fontSize"];
+  weight?: TextStyle["fontWeight"];
 };
 
 export const Typography: React.FC<TypographyProps> = ({
   color,
   children,
+  fontSize,
+  weight,
   ...props
 }) => {
-  const textStyle = StyleSheet.flatten([
+  const textStyle = StyleSheet.flatten<TextStyle>([
     color !== undefined && {
       color,
+    },
+    fontSize !== undefined && {
+      fontSize,
+    },
+    weight !== undefined && {
+      fontWeight: weight,
     },
   ]);
 
