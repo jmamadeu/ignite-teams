@@ -16,6 +16,9 @@ type BlockProps = ViewProps & {
   pl?: ViewStyle["paddingLeft"];
   radius?: ViewStyle["borderRadius"];
   teamCard?: boolean;
+  row?: boolean;
+  px?: ViewStyle["paddingHorizontal"];
+  paddingHorizontal?: ViewStyle["paddingHorizontal"];
 };
 
 const { colors } = THEME;
@@ -34,6 +37,9 @@ export const Block: React.FC<BlockProps> = ({
   paddingLeft,
   radius,
   teamCard,
+  row,
+  px,
+  paddingHorizontal,
   ...props
 }) => {
   const blockStyle = StyleSheet.flatten<ViewStyle>([
@@ -73,6 +79,12 @@ export const Block: React.FC<BlockProps> = ({
       gap: 20,
       backgroundColor: colors.base.gray[500],
       flexDirection: "row",
+    },
+    row && {
+      flexDirection: "row",
+    },
+    (px || paddingHorizontal) !== undefined && {
+      paddingHorizontal: paddingHorizontal ?? px,
     },
   ]);
 

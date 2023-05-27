@@ -11,6 +11,8 @@ import { Typography } from "../typography/typography";
 type ButtonProps = TouchableOpacityProps & {
   children?: React.ReactNode | string;
   standard?: boolean;
+  team?: boolean;
+  bg?: ViewStyle["backgroundColor"];
 };
 
 const { colors } = THEME;
@@ -18,6 +20,8 @@ const { colors } = THEME;
 export const Button: React.FC<ButtonProps> = ({
   children,
   standard,
+  team,
+  bg,
   ...props
 }) => {
   const buttonStyles = StyleSheet.flatten<ViewStyle>([
@@ -28,6 +32,14 @@ export const Button: React.FC<ButtonProps> = ({
       alignItems: "center",
       borderRadius: 6,
     },
+    team && {
+      borderColor: colors.product.green[700],
+      borderWidth: 1,
+      borderRadius: 4,
+    },
+    bg !== undefined && {
+      backgroundColor: bg,
+    },
   ]);
 
   const textStyles = StyleSheet.flatten<TextStyle>([
@@ -35,6 +47,18 @@ export const Button: React.FC<ButtonProps> = ({
       color: colors.base.white,
       fontSize: 16,
       fontWeight: "600",
+    },
+    team === false && {
+      color: colors.base.gray[300],
+      fontSize: 14,
+      fontWeight: "700",
+    },
+    team && {
+      color: colors.base.white,
+      fontSize: 14,
+      fontWeight: "700",
+      paddingVertical: 8,
+      paddingHorizontal: 10,
     },
   ]);
 
