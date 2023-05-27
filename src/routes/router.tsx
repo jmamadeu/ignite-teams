@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View } from "react-native";
 import { MainLogoSVG } from "../assets/logo";
-import { useGetStatusBarHeight } from "../hooks/use-get-status-bar-height";
-import { TeamsScreen } from "../screens";
+import { NewTeamScreen, PlayersScreen, TeamsScreen } from "../screens";
 import { THEME } from "../theme/theme";
 
-type StackParamsList = {
+export type StackParamsList = {
   Teams: undefined;
+  NewTeam: undefined;
+  Players: undefined;
 };
 
 const { colors } = THEME;
@@ -14,31 +14,48 @@ const { colors } = THEME;
 const Stack = createNativeStackNavigator<StackParamsList>();
 
 export const Router = () => {
-  const STATUS_BAR_HEIGHT = useGetStatusBarHeight();
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        options={{
+      <Stack.Group
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colors.base.gray[600],
+          },
+          headerShadowVisible: false,
+
           contentStyle: {
             backgroundColor: colors.base.gray[600],
           },
-          headerTitle: "",
-
-          header: () => (
-            <View
-              style={{
-                paddingTop: STATUS_BAR_HEIGHT,
-                backgroundColor: colors.base.gray[600],
-                alignItems: "center",
-              }}
-            >
-              <MainLogoSVG />
-            </View>
-          ),
         }}
-        name="Teams"
-        component={TeamsScreen}
-      />
+      >
+        <Stack.Screen
+          options={{
+            headerTitle: () => <MainLogoSVG />,
+          }}
+          name="Teams"
+          component={TeamsScreen}
+        />
+
+        <Stack.Screen
+          options={{
+            headerRight: () => <MainLogoSVG />,
+            headerBackTitleVisible: false,
+            title: "",
+          }}
+          name="NewTeam"
+          component={NewTeamScreen}
+        />
+
+        <Stack.Screen
+          options={{
+            headerRight: () => <MainLogoSVG />,
+            headerBackTitleVisible: false,
+            title: "",
+          }}
+          name="Players"
+          component={PlayersScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

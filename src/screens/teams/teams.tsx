@@ -1,10 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { TeamsLogoSVG } from "../../assets/teams";
 import { Block, Button, Typography } from "../../components";
+import { StackParamsList } from "../../routes/router";
 import { THEME } from "../../theme/theme";
 
 const { colors } = THEME;
 
+type TeamsScreenNavigationProp = NativeStackNavigationProp<
+  StackParamsList,
+  "Teams"
+>;
+
 export const TeamsScreen = () => {
+  const { push } = useNavigation<TeamsScreenNavigationProp>();
+
   return (
     <Block container flex={1} justifyContent="space-between">
       <Block gap={40}>
@@ -41,7 +51,14 @@ export const TeamsScreen = () => {
         </Block>
       </Block>
 
-      <Button standard>Add new team</Button>
+      <Button
+        standard
+        onPress={() => {
+          push("NewTeam");
+        }}
+      >
+        Add new team
+      </Button>
     </Block>
   );
 };
