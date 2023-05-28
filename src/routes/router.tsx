@@ -3,15 +3,9 @@ import { MainLogoSVG } from "../assets/logo";
 import { NewTeamScreen, PlayersScreen, TeamsScreen } from "../screens";
 import { THEME } from "../theme/theme";
 
-export type StackParamsList = {
-  Teams: undefined;
-  NewTeam: undefined;
-  Players: undefined;
-};
-
 const { colors } = THEME;
 
-const Stack = createNativeStackNavigator<StackParamsList>();
+const Stack = createNativeStackNavigator();
 
 export const Router = () => {
   return (

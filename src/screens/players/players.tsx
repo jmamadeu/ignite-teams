@@ -28,11 +28,6 @@ export const PlayersScreen = () => {
           }
         />
 
-        <Block row gap={20} alignItems="center">
-          <Button team>Team A</Button>
-          <Button team={false}>Team B</Button>
-        </Block>
-
         <Block>
           <PlayerCard />
         </Block>

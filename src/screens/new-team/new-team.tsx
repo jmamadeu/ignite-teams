@@ -1,14 +1,25 @@
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Image } from "react-native";
 import { Block, Button, Input, Typography } from "../../components";
-import { StackParamsList } from "../../routes/router";
+
+import { useState } from "react";
+import { addNewTeam } from "../../services/storage/add-new-team";
 import { THEME } from "../../theme/theme";
 
-type NavigationProps = NativeStackNavigationProp<StackParamsList, "NewTeam">;
-
 export const NewTeamScreen = () => {
-  const { push } = useNavigation<NavigationProps>();
+  const { navigate } = useNavigation();
+
+  const [teamName, setTeamName] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const handleCreateTeam = async () => {
+    if (!teamName) return;
+    setSaving(true);
+    await addNewTeam({ name: teamName });
+    setSaving(false);
+    setTeamName("");
+    navigate("Players");
+  };
 
   return (
     <Block container gap={34} flex={1}>
@@ -29,14 +40,14 @@ export const NewTeamScreen = () => {
       </Block>
 
       <Block gap={20}>
-        <Input placeholder="Team name" />
-        <Button
-          standard
-          onPress={() => {
-            push("Players");
-          }}
-        >
-          Add
+        <Input
+          placeholder="Team name"
+          value={teamName}
+          autoFocus
+          onChangeText={setTeamName}
+        />
+        <Button standard onPress={handleCreateTeam}>
+          {saving ? "Adding..." : "Add"}
         </Button>
       </Block>
     </Block>

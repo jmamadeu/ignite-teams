@@ -1,19 +1,19 @@
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { TeamsLogoSVG } from "../../assets/teams";
 import { Block, Button, Typography } from "../../components";
-import { StackParamsList } from "../../routes/router";
+
+import { useTeams } from "../../services/storage/use-teams";
 import { THEME } from "../../theme/theme";
 
 const { colors } = THEME;
 
-type TeamsScreenNavigationProp = NativeStackNavigationProp<
-  StackParamsList,
-  "Teams"
->;
-
 export const TeamsScreen = () => {
-  const { push } = useNavigation<TeamsScreenNavigationProp>();
+  const { navigate } = useNavigation();
+  const { teams, retry } = useTeams();
+
+  useFocusEffect(() => {
+    retry();
+  });
 
   return (
     <Block container flex={1} justifyContent="space-between">
@@ -27,34 +27,30 @@ export const TeamsScreen = () => {
           </Typography>
         </Block>
 
-        <Block gap={10}>
-          <Block teamCard>
-            <TeamsLogoSVG />
-            <Typography fontSize={18} color={colors.base.white}>
-              Team name #1
+        {teams?.length ? (
+          <Block gap={10}>
+            {teams?.map((team) => (
+              <Block teamCard key={team.id}>
+                <TeamsLogoSVG />
+                <Typography fontSize={18} color={colors.base.white}>
+                  {team.name}
+                </Typography>
+              </Block>
+            ))}
+          </Block>
+        ) : (
+          <Block justifyContent="center" alignItems="center">
+            <Typography color="white" fontSize={16}>
+              there's no team, add new one
             </Typography>
           </Block>
-
-          <Block teamCard>
-            <TeamsLogoSVG />
-            <Typography fontSize={18} color={colors.base.white}>
-              Team name #2
-            </Typography>
-          </Block>
-
-          <Block teamCard>
-            <TeamsLogoSVG />
-            <Typography fontSize={18} color={colors.base.white}>
-              Team name #3``
-            </Typography>
-          </Block>
-        </Block>
+        )}
       </Block>
 
       <Button
         standard
         onPress={() => {
-          push("NewTeam");
+          navigate("NewTeam");
         }}
       >
         Add new team

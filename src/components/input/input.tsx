@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -14,6 +15,8 @@ type InputProps = TextInputProps & {
 const { colors } = THEME;
 
 export const Input: React.FC<InputProps> = ({ right, ...props }) => {
+  const [active, setActive] = useState(false);
+
   const inputStyles = StyleSheet.flatten<TextStyle>([
     {
       fontSize: 16,
@@ -33,13 +36,19 @@ export const Input: React.FC<InputProps> = ({ right, ...props }) => {
       flexDirection: "row",
       alignItems: "center",
     },
+    focus: {
+      borderColor: colors.product.green[500],
+      borderWidth: 1,
+    },
   });
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, active && styles.focus]}>
       <TextInput
         placeholderTextColor={colors.base.gray[300]}
         style={[inputStyles]}
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
         {...props}
       />
 
